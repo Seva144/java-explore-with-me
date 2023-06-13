@@ -73,6 +73,7 @@ public class ParticipationServiceImpl implements ParticipationService {
         return ParticipationMapper.mapToDto(participation);
     }
 
+
     @Override
     public List<ParticipationRequestDto> getAllRequestsByUser(Long userId) {
         if (!userRepository.existsById(userId)) {
@@ -84,7 +85,8 @@ public class ParticipationServiceImpl implements ParticipationService {
                 .map(ParticipationMapper::mapToDto)
                 .collect(Collectors.toList());
     }
-    
+
+
     @Override
     public ParticipationRequestDto canselRequestByUserForEvent(Long userId, Long requestId) {
         if (!userRepository.existsById(userId)) {
