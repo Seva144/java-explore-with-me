@@ -102,9 +102,9 @@ public class ParticipationServiceImpl implements ParticipationService {
     }
 
     public void ValidRequest(Long userId, Long eventId) {
-        userRepository.findById(userId).orElseThrow(() -> new NotFoundException("Пользователь с id-"
-                + userId + "не найден"));
-        eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException("Событие с id-"
-                + eventId + " не найдено"));
+        userRepository.findById(userId).orElseThrow(() ->
+                new NotFoundException("Пользователь с id-" + userId + "не найден"));
+        eventRepository.findById(eventId).orElseThrow(() ->
+                new NotFoundException("Событие с id-" + eventId + " не найдено"));
     }
 }

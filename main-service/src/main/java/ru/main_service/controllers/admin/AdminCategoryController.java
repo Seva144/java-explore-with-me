@@ -22,6 +22,7 @@ public class AdminCategoryController {
         log.info("Update category updateDto={}", updateDto);
         return adminService.updateCategory(catId, updateDto);
     }
+    
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)

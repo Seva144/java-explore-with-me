@@ -23,8 +23,7 @@ public class ParticipationMapper {
         return participationDto;
     }
 
-    public static Participation mapToModel
-            (ParticipationRequestDto participationDto, User requester, Event event) {
+    public static Participation mapToModel(ParticipationRequestDto participationDto, User requester, Event event) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String time = participationDto.getCreated().format(formatter);
         Participation participation = new Participation();
