@@ -10,7 +10,7 @@ public class ConfigClient {
 
     private final String serverUrl;
 
-    public ConfigClient(@Value("http://localhost:9090") String serverUrl) {
+    public ConfigClient(@Value("http://stat-server:9090") String serverUrl) {
         this.serverUrl = serverUrl;
     }
 
