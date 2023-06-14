@@ -29,7 +29,6 @@ public class ErrorHandler {
                 HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleThrowable(final MethodArgumentNotValidException e, WebRequest webRequest) {

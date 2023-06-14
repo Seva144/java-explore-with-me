@@ -29,28 +29,21 @@ import java.util.stream.Collectors;
 public class ParticipationServiceImpl implements ParticipationService {
 
     private final ParticipationRepository participationRepository;
-
     private final UserRepository userRepository;
-
     private final EventRepository eventRepository;
 
     @Transactional
     public ParticipationRequestDto addRequestByUserForEvent(Long userId, Long eventId) {
         validRequest(userId, eventId);
-
         User user = userRepository.getReferenceById(userId);
         Event event = eventRepository.getReferenceById(eventId);
-
-        if (participationRepository.findByRequester_IdAndEvent_Id(userId, eventId) != null) {
+        if (participationRepository.findByRequester_IdAndEvent_Id(userId, eventId) != null)
             throw new DataIntegrityViolationException("Запрос на участие в событии: " + event.getTitle() + " от пользователя с id-"
                     + userId + " уже существует");
-        }
-        if (event.getInitiator().getId().equals(userId)) {
+        if (event.getInitiator().getId().equals(userId))
             throw new DataIntegrityViolationException("Инициатор не может подать заявку на своё событие");
-        }
-        if (!event.getState().equals(EventState.PUBLISHED)) {
+        if (!event.getState().equals(EventState.PUBLISHED))
             throw new DataIntegrityViolationException("Нельзя подать заявку на неопубликованное событие");
-        }
         if (event.getParticipantLimit() != 0) {
             if (event.getParticipantLimit().equals(participationRepository
                     .getConfirmedRequests(eventId))) {
@@ -66,10 +59,8 @@ public class ParticipationServiceImpl implements ParticipationService {
             participationRequestDto.setStatus(String.valueOf(RequestStatus.PENDING));
         }
         participationRequestDto.setCreated(LocalDateTime.now());
-
         Participation participation = participationRepository
                 .save(ParticipationMapper.mapToModel(participationRequestDto, user, event));
-
         return ParticipationMapper.mapToDto(participation);
     }
 
@@ -80,7 +71,6 @@ public class ParticipationServiceImpl implements ParticipationService {
             throw new NotFoundException("Пользователь с id-" + userId + " не найден");
         }
         List<Participation> requests = participationRepository.findAllByRequester_Id(userId);
-
         return requests.stream()
                 .map(ParticipationMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -102,7 +92,7 @@ public class ParticipationServiceImpl implements ParticipationService {
         }
     }
 
-    public void validRequest(Long userId, Long eventId) {
+    private void validRequest(Long userId, Long eventId) {
         userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException("Пользователь с id-" + userId + "не найден"));
         eventRepository.findById(eventId).orElseThrow(() ->

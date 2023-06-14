@@ -1,49 +1,53 @@
 package ru.main_service.model.dto;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventFullDto {
 
-    private Long id;
+    Long id;
 
-    private String annotation;
+    String annotation;
 
-    private CategoryDto category;
+    CategoryDto category;
 
-    private Integer confirmedRequests;
+    Integer confirmedRequests;
 
-    private LocalDateTime createdOn;
+    LocalDateTime createdOn;
 
-    private String description;
+    String description;
 
-    private String eventDate;
+    String eventDate;
 
-    private UserDto initiator;
+    UserDto initiator;
 
-    private Location location;
+    Location location;
 
-    private Boolean paid;
+    Boolean paid;
 
-    private Integer participantLimit;
+    Integer participantLimit;
 
-    private LocalDateTime publishedOn;
+    LocalDateTime publishedOn;
 
-    private Boolean requestModeration;
+    Boolean requestModeration;
 
-    private String state;
+    String state;
 
-    private String title;
+    String title;
 
-    private Long views;
+    Long views;
 
     @Data
+    @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Location {
 
-        private Double lat;
+        Double lat;
 
-        private Double lon;
+        Double lon;
     }
 }

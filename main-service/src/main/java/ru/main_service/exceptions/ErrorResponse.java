@@ -29,8 +29,6 @@ public class ErrorResponse {
     String reason;
 
     HttpStatus status;
-
+    
     String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
-
 }

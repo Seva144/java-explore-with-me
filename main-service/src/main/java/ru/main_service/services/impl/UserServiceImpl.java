@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
                     .map(UserMapper::mapToDto)
                     .collect(Collectors.toList());
         }
-
         log.info("Запрошен список пользователей {}.", ids);
         return userRepository.getUsersByIdIsIn(ids, pageable)
                 .stream()
@@ -51,7 +50,6 @@ public class UserServiceImpl implements UserService {
         if (userDto.getEmail().length() != 254) {
             if (validEmail[0].length() > 64 || validEmail[1].length() > 63)
                 throw new RequestException("Недопустимый email");
-
         }
         User user = userRepository.save(UserMapper.mapToModel(userDto));
         return UserMapper.mapToDto(user);

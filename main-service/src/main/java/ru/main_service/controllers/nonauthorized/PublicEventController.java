@@ -21,7 +21,6 @@ public class PublicEventController {
 
     private final EventService eventService;
 
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<EventShortDto> getAllEventsPublic(@RequestParam(required = false) String text,
@@ -36,12 +35,14 @@ public class PublicEventController {
                                                   @RequestParam(required = false, defaultValue = "0") Integer from,
                                                   @RequestParam(required = false, defaultValue = "10") Integer size,
                                                   HttpServletRequest request) {
+        log.info("Получение событий по фильтрам");
         return eventService.getAllEventsPublic(text, categoryIds, paid, rangeStart,
                 rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     @GetMapping("/{id}")
     public EventFullDto getFullInfoAboutEvent(@PathVariable Long id, HttpServletRequest request) {
+        log.info("Получение полной информации о событии с id - {}", id);
         return eventService.getPublishedEventById(id, request);
     }
 }

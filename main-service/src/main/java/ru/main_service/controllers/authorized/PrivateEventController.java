@@ -21,34 +21,33 @@ public class PrivateEventController {
     @GetMapping()
     public List<EventShortDto> getEventsByUser(@PathVariable Long userId, @RequestParam(defaultValue = "0") int from,
                                                @RequestParam(defaultValue = "10") int size) {
-        log.info("Get events by user Id {}", userId);
+        log.info("Получение события с Id {}", userId);
         return eventService.getEventsByUserId(userId, from, size);
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId, @Valid @RequestBody EventNewDto eventDto) {
-        log.info("Add event {}", eventDto);
+        log.info("Создание события {} пользователем {}", eventDto, userId);
         return eventService.createEvent(eventDto, userId);
     }
 
     @GetMapping("/{eventId}")
     public EventFullDto getInfoAboutEventByUser(@PathVariable Long userId, @PathVariable Long eventId) {
-        log.info("Get full info event by user Id {}", userId);
+        log.info("Получение полной информации о событии пользователем {}", userId);
         return eventService.getEventByUserIdAndEventId(userId, eventId);
     }
 
     @PatchMapping("/{eventId}")
     public EventFullDto updateEventByUser(@PathVariable Long userId, @PathVariable Long eventId,
                                           @Valid @RequestBody EventUpdateUserRequestDto requestDto) {
-        log.info("Update event Id {}", eventId);
+        log.info("Обновление события с Id {} данными {}", eventId, requestDto);
         return eventService.updateEventByUser(userId, eventId, requestDto);
     }
 
-
     @GetMapping("/{eventId}/requests")
     public List<ParticipationRequestDto> getInfoAboutRequestByEvent(@PathVariable Long userId, @PathVariable Long eventId) {
-        log.info("Get participation by user Id {} and event Id {}", userId, eventId);
+        log.info("Получение информации об участии пользователя с Id {} в событии Id {}", userId, eventId);
         return eventService.getParticipantsInEventByUser(userId, eventId);
     }
 
@@ -56,24 +55,8 @@ public class PrivateEventController {
     @PatchMapping("/{eventId}/requests")
     public ChangeRequestDto changeStatusByUser(@PathVariable Long userId, @PathVariable Long eventId,
                                                @RequestBody ChangeRequestDto requestDto) {
-        log.info("Update event by user Id {}", userId);
+        log.info("Обновление события пользователем Id {} данными {}", userId, requestDto);
         return eventService.updateParticipantsByUser(userId, eventId,
                 requestDto);
     }
-
-
-//
-//    @PatchMapping("/{eventId}/requests/{reqId}/confirm")
-//    public ParticipationDto confirmRequestEventByUser(@PathVariable Long userId, @PathVariable Long eventId,
-//                                                      @PathVariable Long reqId) {
-//        log.info("Confirmed request {} event Id {}", reqId, eventId);
-//        return eventService.confirmRequestInEventByUser(userId, eventId, reqId);
-//    }
-//
-//    @PatchMapping("/{eventId}/requests/{reqId}/reject")
-//    public ParticipationDto rejectRequestEventByUser(@PathVariable Long userId, @PathVariable Long eventId,
-//                                                     @PathVariable Long reqId) {
-//        log.info("Reject request id {} event Id {}", reqId, eventId);
-//        return eventService.rejectRequestInEventByUser(userId, eventId, reqId);
-//    }
 }

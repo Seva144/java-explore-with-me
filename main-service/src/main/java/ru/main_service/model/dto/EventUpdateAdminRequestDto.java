@@ -1,46 +1,51 @@
 package ru.main_service.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventUpdateAdminRequestDto {
-    private Long id;
+    Long id;
 
     @Size(min = 20, max = 2000)
-    private String annotation;
+    String annotation;
 
-    private Long category;
+    Long category;
 
     @Size(min = 20, max = 7000)
-    private String description;
+    String description;
 
     @Future
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
+    LocalDateTime eventDate;
 
-    private EventNewDto.Location location;
+    EventNewDto.Location location;
 
-    private Boolean paid;
+    Boolean paid;
 
-    private Integer participantLimit;
+    Integer participantLimit;
 
-    private Boolean requestModeration;
+    Boolean requestModeration;
 
-    private StateAction stateAction;
+    StateAction stateAction;
 
     @Size(min = 3, max = 120)
-    private String title;
+    String title;
 
 
     @Data
+    @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Location {
 
-        private Double lon;
-        private Double lat;
+        Double lon;
+
+        Double lat;
     }
 }

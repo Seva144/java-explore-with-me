@@ -32,7 +32,7 @@ public class AdminEventController {
                                                         "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
                                                 @RequestParam(defaultValue = "0") int from,
                                                 @RequestParam(defaultValue = "10") int size) {
-        log.info("Get request: search events by admin");
+        log.info("Получение полной информации о событиях администратором");
         List<EventState> statesReform;
         if (states != null) {
             statesReform = states.stream().map(EventState::valueOf).collect(Collectors.toList());
@@ -44,7 +44,7 @@ public class AdminEventController {
 
     @PatchMapping("/{eventId}")
     public EventFullDto updateEventAdmin(@PathVariable Long eventId, @Valid @RequestBody EventUpdateAdminRequestDto eventDto) {
-        log.info("Update event by admin : {}", eventDto);
+        log.info("Обновление событие администратором : {}", eventDto);
         return eventService.updateEventByAdmin(eventId, eventDto);
     }
 

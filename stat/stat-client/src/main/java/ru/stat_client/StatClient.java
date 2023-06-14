@@ -17,7 +17,6 @@ import java.util.List;
 public class StatClient {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     private final WebClient webClient;
 
     public StatClient(String url) {
@@ -31,7 +30,6 @@ public class StatClient {
                 .uri(httpRequest.getRequestURI())
                 .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
-
         webClient.post()
                 .uri("/hit")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

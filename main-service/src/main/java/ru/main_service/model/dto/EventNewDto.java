@@ -1,7 +1,9 @@
 package ru.main_service.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,40 +11,43 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventNewDto {
 
     @NotBlank
     @Size(min = 20, max = 2000)
-    private String annotation;
+    String annotation;
 
     @NotNull
-    private Long category;
+    Long category;
 
     @NotBlank
     @Size(min = 20, max = 7000)
-    private String description;
+    String description;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime eventDate;
+    LocalDateTime eventDate;
 
     @NotNull
-    private Location location;
+    Location location;
 
-    private Boolean paid;
+    Boolean paid;
 
-    private Integer participantLimit;
+    Integer participantLimit;
 
-    private Boolean requestModeration;
+    Boolean requestModeration;
 
     @Size(min = 3, max = 120)
-    private String title;
+    String title;
 
     @Data
+    @FieldDefaults(level = AccessLevel.PRIVATE)
     public static class Location {
 
-        private Double lon;
-        private Double lat;
+        Double lon;
+
+        Double lat;
     }
 
 }

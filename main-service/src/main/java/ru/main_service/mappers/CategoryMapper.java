@@ -1,8 +1,10 @@
 package ru.main_service.mappers;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.main_service.model.Category;
 import ru.main_service.model.dto.CategoryDto;
 
+@Slf4j
 public class CategoryMapper {
 
     public static CategoryDto mapToDto(Category category) {

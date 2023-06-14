@@ -1,6 +1,7 @@
 package ru.main_service.model.dto;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -9,14 +10,15 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CompilationDto {
 
-    private Long id;
+    Long id;
 
-    private List<EventShortDto> events;
+    List<EventShortDto> events;
 
-    private Boolean pinned;
+    Boolean pinned;
 
-    private String title;
+    String title;
 
 }

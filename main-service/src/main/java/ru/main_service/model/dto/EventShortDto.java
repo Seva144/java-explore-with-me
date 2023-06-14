@@ -1,25 +1,28 @@
 package ru.main_service.model.dto;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventShortDto {
 
-    private Long id;
+    Long id;
 
-    private String annotation;
+    String annotation;
 
-    private Integer confirmedRequests;
+    Integer confirmedRequests;
 
-    private CategoryDto category;
+    CategoryDto category;
 
-    private String eventDate;
+    String eventDate;
 
-    private UserDto initiator;
+    UserDto initiator;
 
-    private Boolean paid;
+    Boolean paid;
 
-    private String title;
+    String title;
 
-    private Long views;
+    Long views;
 }
