@@ -36,7 +36,7 @@ public class ParticipationServiceImpl implements ParticipationService {
 
     @Transactional
     public ParticipationRequestDto addRequestByUserForEvent(Long userId, Long eventId) {
-        ValidRequest(userId, eventId);
+        validRequest(userId, eventId);
 
         User user = userRepository.getReferenceById(userId);
         Event event = eventRepository.getReferenceById(eventId);
@@ -102,7 +102,7 @@ public class ParticipationServiceImpl implements ParticipationService {
         }
     }
 
-    public void ValidRequest(Long userId, Long eventId) {
+    public void validRequest(Long userId, Long eventId) {
         userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException("Пользователь с id-" + userId + "не найден"));
         eventRepository.findById(eventId).orElseThrow(() ->
