@@ -166,7 +166,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventShortDto> getAllEventsPublic(String text, List<Long> catIds, Boolean paid, LocalDateTime rangeStart,
                                                   LocalDateTime rangeEnd, Boolean onlyAvailable, String sort,
-                                                  Integer from, Integer size) {
+                                                  Integer from, Integer size, HttpServletRequest request) {
 
         if (Objects.isNull(rangeStart)) {
             rangeStart = LocalDateTime.now();
@@ -174,13 +174,11 @@ public class EventServiceImpl implements EventService {
         if (Objects.isNull(rangeEnd)) {
             rangeEnd = LocalDateTime.now().plusYears(100);
         }
-
         if (rangeEnd.isBefore(rangeStart)) {
             throw new RequestException("Неверный временной диапазон");
         }
 
         Pageable pageable = PageRequest.of(from, size);
-        log.info("get all filtered events");
         List<Event> sortedEvents = new ArrayList<>();
         if (sort.equals("EVENT_DATE"))
             sortedEvents = eventRepository.getFilterEventsByDate(text, catIds, paid, rangeStart, rangeEnd, pageable);
@@ -190,7 +188,10 @@ public class EventServiceImpl implements EventService {
             sortedEvents.removeIf(event ->
                     participationRepository.getConfirmedRequests(event.getId()) >= event.getParticipantLimit());
         }
+        client.statClient().hit(request);
+        Map<Long, Long> stats = getViewStats(sortedEvents);
         return sortedEvents.stream()
+                .peek(event -> event.setViews(stats.get(event.getId())))
                 .map(event -> EventMapper
                         .mapToShortDto(event, participationRepository.getConfirmedRequests(event.getId())))
                 .collect(Collectors.toList());
@@ -209,7 +210,6 @@ public class EventServiceImpl implements EventService {
         if (!stats.isEmpty()) {
             event.setViews(stats.get(event.getId()));
         }
-
         eventRepository.save(event);
         return EventMapper.mapToFullDto(event,
                 participationRepository.getConfirmedRequests(event.getId()));
@@ -352,7 +352,6 @@ public class EventServiceImpl implements EventService {
                 .collect(Collectors.toList());
         List<ViewStats> viewStats = client.statClient().getListStats(LocalDateTime.now().minusYears(1L),
                 LocalDateTime.now().plusYears(1L), uris, true);
-        log.info("LIST VIEW STATS:" + viewStats);
 
         return viewStats.stream()
                 .filter(statRecord -> statRecord.getApp().equals("ewm-service"))

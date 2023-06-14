@@ -10,7 +10,7 @@ public interface EventService {
 
     List<EventShortDto> getAllEventsPublic(String text, List<Long> catIds, Boolean paid,
                                            LocalDateTime rangeStart, LocalDateTime rangeEnd, Boolean onlyAvailable,
-                                           String sort, Integer from, Integer size);
+                                           String sort, Integer from, Integer size, HttpServletRequest request);
 
     EventFullDto getPublishedEventById(Long eventId, HttpServletRequest request);
 

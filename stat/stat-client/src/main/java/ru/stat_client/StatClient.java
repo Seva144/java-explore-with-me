@@ -24,7 +24,6 @@ public class StatClient {
         this.webClient = WebClient.create(url);
     }
 
-
     public void hit(HttpServletRequest httpRequest) {
         EndpointHitDto hitDto = EndpointHitDto.builder()
                 .app("ewm-service")
@@ -32,8 +31,6 @@ public class StatClient {
                 .uri(httpRequest.getRequestURI())
                 .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
-        log.info("IP:" + hitDto.getIp());
-        log.info("URI:" + hitDto.getUri());
 
         webClient.post()
                 .uri("/hit")

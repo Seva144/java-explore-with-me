@@ -6,10 +6,7 @@ import ru.stat_dto.EndpointHitDto;
 import ru.stat_dto.ViewStats;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,20 +22,12 @@ public class StatServiceImpl implements StatService {
     @Override
     public List<ViewStats> getHits(LocalDateTime start,
                                    LocalDateTime end, List<String> uris, Boolean unique) {
-        List<ViewStats> hits = new ArrayList<>();
+        List<ViewStats> viewStats;
         if (unique) {
-            if (uris == null) hits.addAll(statRepository.getEndpointHitByWithoutUrisDistinct(start, end));
-            else for (String uri : uris) {
-                hits.addAll(statRepository.getEndpointHitByWithUrisDistinct(start, end, uri));
-            }
+            viewStats = statRepository.getByUriAndUniqueIp(start, end, uris);
         } else {
-            if (uris == null) hits.addAll(statRepository.getEndpointHitByWithoutUris(start, end));
-            else for (String uri : uris) {
-                hits.addAll(statRepository.getEndpointHitWithUris(start, end, uri));
-            }
+            viewStats = statRepository.getByUri(start, end, uris);
         }
-        return hits.stream().sorted(Comparator
-                        .comparingLong(ViewStats::getHits).reversed())
-                .collect(Collectors.toList());
+        return viewStats;
     }
 }
