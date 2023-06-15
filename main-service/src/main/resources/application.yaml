@@ -1,4 +1,6 @@
-Spring:
+stat-server.url: http://stat-server:9090
+
+spring:
   jpa:
     hibernate:
       ddl-auto: none
@@ -7,12 +9,10 @@ Spring:
 
     show-sql: true
 
-  sql:
-    init:
-      mode: always
+  sql.init.mode: always
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/stats-db
+    url: jdbc:postgresql://localhost:5432/ewm-db
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: root
@@ -28,7 +28,7 @@ logging:
         interceptor: trace
 
 server:
-  port: 9090
+  port: 8080
 
 ---
 spring:
@@ -37,7 +37,7 @@ spring:
       on-profile: "ci, test"
 
   datasource:
-    url: jdbc:h2:mem:ewm-stat-service
+    url: jdbc:h2:mem:ewm-main-service
     driver-class-name: org.h2.Driver
     username: test
     password: test
