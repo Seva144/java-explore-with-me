@@ -13,7 +13,7 @@ public interface CommentService {
 
     void deleteComment(Long userId, Long eventId);
 
-    List<CommentResponseDto> getAllCommentsByEvent (Long eventId, Integer from, Integer size);
+    List<CommentResponseDto> getAllCommentsByEvent(Long eventId, Integer from, Integer size);
 
     List<CommentResponseDto> getAllCommentsByUser(Long userId, Integer from, Integer size);
 
