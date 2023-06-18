@@ -34,5 +34,4 @@ public class PublicCommentController {
         return commentService.getAllCommentsByUser(userId, from, size);
     }
 
-
 }

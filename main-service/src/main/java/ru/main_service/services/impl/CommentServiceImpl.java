@@ -44,9 +44,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponseDto updateComment(CommentRequestDto commentDto, Long userId, Long eventId) {
-        if (commentRepository.findByUser_IdAndEvent_Id(userId, eventId) == null)
-            throw new NotFoundException("Такого комментария не существует");
         Comment comment = commentRepository.findByUser_IdAndEvent_Id(userId, eventId);
+        if (comment == null)
+            throw new NotFoundException("Такого комментария не существует");
         comment.setComment(commentDto.getComment());
         return CommentMapper.mapToDto(commentRepository.save(comment));
     }
@@ -54,7 +54,8 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void deleteComment(Long userId, Long eventId) {
-        if (commentRepository.findByUser_IdAndEvent_Id(userId, eventId) == null)
+        Comment comment = commentRepository.findByUser_IdAndEvent_Id(userId, eventId);
+        if (comment == null)
             throw new NotFoundException("Такого комментария не существует");
         commentRepository.deleteByUser_IdAndEvent_Id(userId, eventId);
     }
