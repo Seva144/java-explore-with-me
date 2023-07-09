@@ -13,33 +13,33 @@ API основного сервиса разделена на 3 части:
 
 Эндпоинты основного сервиса
 PUBLIC
- - get/complications - получение подборок событий
- - get/complications/{compId} - получение подборок событий по его id
- - get/categories - получение категорий
- - get/categories/{catId} - получение категории по id
- - get/events - получение событий с возможностью фильтрации
- - get/events/{id} - полученеи подробной информации об опубликованном событии по ic
+ - get: /complications - получение подборок событий
+ - get: /complications/{compId} - получение подборок событий по его id
+ - get: /categories - получение категорий
+ - get: /categories/{catId} - получение категории по id
+ - get: /events - получение событий с возможностью фильтрации
+ - get: /events/{id} - полученеи подробной информации об опубликованном событии по ic
 
 PRIVATE
-- get/users/{userId}/events - получение событий добваленных текушим пользователем
-- post/users/{userId}/events - добавление нового события пользователем
-- get/users/{userId}/events/{eventId} - получение полной иноформации о событии добавленном текущим пользователем
-- patch/users/{userId}/events/{eventId} - изменение события добавленного текущим пользователем
-- get/users/{userId}/events/{eventId}/requests - получение информации о запросах на участие в событии текущего пользователя
-- patch/users/{userid}/events/{eventId}/requests - изменение статуса (подтверждена, отменена) заявок на участие в событии текущего пользователя
-- get/users/{userId}/requests - получение информации о заявках текущего пользователя на участие в чужих событиях
-- post/users/{userId}/requests - добавление запроса от текущего пользователя на участие в событии
-- patch/users/{userId/requests/{requestId}/cancel - отмена своего запроса на участие в событии 
+- get: /users/{userId}/events - получение событий добваленных текушим пользователем
+- post: /users/{userId}/events - добавление нового события пользователем
+- get: /users/{userId}/events/{eventId} - получение полной иноформации о событии добавленном текущим пользователем
+- patch: /users/{userId}/events/{eventId} - изменение события добавленного текущим пользователем
+- get: /users/{userId}/events/{eventId}/requests - получение информации о запросах на участие в событии текущего пользователя
+- patch: /users/{userid}/events/{eventId}/requests - изменение статуса (подтверждена, отменена) заявок на участие в событии текущего пользователя
+- get: /users/{userId}/requests - получение информации о заявках текущего пользователя на участие в чужих событиях
+- post: /users/{userId}/requests - добавление запроса от текущего пользователя на участие в событии
+- patch: /users/{userId/requests/{requestId}/cancel - отмена своего запроса на участие в событии 
 
 ADMIN
-- post/admin/categories - добавление новой категории
-- delete/admin/categories/{catId} - удаление категории
-- patch/admin/categories/{catId} - изменение категории
-- get/admin/events - поиск событий
-- patch/admin/events/{eventid} - редактирование данных события и его статуса (отклонение/публикация)
-- get/admin/users - получение информации о пользователях
-- post/admin/users - добавление нового пользователя
-- delete/admin/users/{userId} - удаление пользователя
-- post/admin/compilations - добавление новой подборки
-- delete/admin/compilations/{compId} - удаление подборки
-- patch/admin/compilations/{compId} - обновить информацию о подборке
+- post: /admin/categories - добавление новой категории
+- delete: /admin/categories/{catId} - удаление категории
+- patch: /admin/categories/{catId} - изменение категории
+- get: /admin/events - поиск событий
+- patch: /admin/events/{eventid} - редактирование данных события и его статуса (отклонение/публикация)
+- get: /admin/users - получение информации о пользователях
+- post: /admin/users - добавление нового пользователя
+- delete: /admin/users/{userId} - удаление пользователя
+- post: /admin/compilations - добавление новой подборки
+- delete: /admin/compilations/{compId} - удаление подборки
+- patch: /admin/compilations/{compId} - обновить информацию о подборке
